@@ -3,14 +3,15 @@ stack_t *head = NULL;
 
 /**
  * main - entry point
- * @agc: arguments count
+ * @argc: arguments count
  * @argv: list of arguments
  * Return: always 0
  */
 
-int main(int agc, char *argv[])
+
+int main(int argc, char *argv[])
 {
-	if (agc != 2)
+	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
@@ -25,7 +26,8 @@ int main(int agc, char *argv[])
  * @n: Number to go inside the node.
  * Return: Upon sucess a pointer to the node. Otherwise NULL.
  */
-stack_t *create_node(int x)
+
+stack_t *create_node(int n)
 {
 	stack_t *node;
 
@@ -34,13 +36,14 @@ stack_t *create_node(int x)
 		err(4);
 	node->next = NULL;
 	node->prev = NULL;
-	node->x = x;
+	node->n = n;
 	return (node);
 }
 
 /**
  * free_nodes - Frees nodes in the stack.
  */
+
 void free_nodes(void)
 {
 	stack_t *tmp;
@@ -76,8 +79,6 @@ void add_to_queue(stack_t **new_node, __attribute__((unused))unsigned int ln)
 	tmp = head;
 	while (tmp->next != NULL)
 		tmp = tmp->next;
-
 	tmp->next = *new_node;
 	(*new_node)->prev = tmp;
-
 }
