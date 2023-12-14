@@ -4,6 +4,9 @@ void ERR(int error_code, ...) {
     va_list args;
     va_start(args, error_code);
 
+    int line_number;
+    char *operation;
+
     switch (error_code) {
         case 1:
             fprintf(stderr, "USAGE: monty file\n");
@@ -12,8 +15,8 @@ void ERR(int error_code, ...) {
             fprintf(stderr, "Error: Can't open file %s\n", va_arg(args, char *));
             break;
         case 3:
-            int line_number = va_arg(args, int);
-            char *operation = va_arg(args, char *);
+            line_number = va_arg(args, int);
+            operation = va_arg(args, char *);
             fprintf(stderr, "L%d: unknown instruction %s\n", line_number, operation);
             break;
         case 4:
@@ -34,6 +37,9 @@ void MORE_ERR(int error_code, ...) {
     va_list args;
     va_start(args, error_code);
 
+    int line_number;
+    char *operation;
+
     switch (error_code) {
         case 6:
             fprintf(stderr, "L%d: can't pint, stack empty\n", va_arg(args, int));
@@ -42,8 +48,8 @@ void MORE_ERR(int error_code, ...) {
             fprintf(stderr, "L%d: can't pop an empty stack\n", va_arg(args, int));
             break;
         case 8:
-            int line_number = va_arg(args, unsigned int);
-            char *operation = va_arg(args, char *);
+            line_number = va_arg(args, unsigned int);
+            operation = va_arg(args, char *);
             fprintf(stderr, "L%d: can't %s, stack too short\n", line_number, operation);
             break;
         case 9:
@@ -62,6 +68,7 @@ void STRING_ERR(int error_code, ...) {
     va_start(args, error_code);
 
     int line_number = va_arg(args, int);
+
     switch (error_code) {
         case 10:
             fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
